@@ -253,9 +253,13 @@ fi
 # Development Tools Support
 #
 
-if type -p python3 &> /dev/null
+if [[ -d $HOME/.local/bin ]]
 then
   export PATH="$HOME/.local/bin:$PATH"
+fi
+
+if type -p python3 &> /dev/null
+then
   export MANPATH="$HOME/.local/share/man:$MANPATH"
   alias python=python3
   alias pydoc=pydoc3
