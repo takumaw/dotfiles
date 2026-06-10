@@ -23,6 +23,9 @@
     parallel = 0
 [pull]
     rebase = true
+[rebase]
+    autoStash = true
+    updateRefs = true
 [push]
     autoSetupRemote = true
     default = simple
@@ -35,6 +38,9 @@
     date = iso
 [diff]
     mnemonicPrefix = true
+    algorithm = histogram
+[merge]
+    conflictStyle = zdiff3
 [filter "lfs"]
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
