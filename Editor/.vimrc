@@ -22,7 +22,6 @@ set encoding=utf-8
 "
 
 syntax on
-highlight Normal ctermbg=black ctermfg=white
 set number
 set ruler
 "set list
@@ -38,7 +37,7 @@ set undolevels=1000
 "set clipboard=unnamed
 
 set autoindent
-set smartindent
+filetype plugin indent on
 "set breakindent
 set showmatch
 
@@ -58,7 +57,7 @@ set softtabstop=4
 set hlsearch
 set incsearch
 set ignorecase
-"set smartcase
+set smartcase
 
 " keybinding
 "

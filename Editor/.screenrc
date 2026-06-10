@@ -11,7 +11,7 @@ vbell off
 defscrollback 100000
 
 altscreen off
-term xterm-256color
+term screen-256color
 termcapinfo xterm* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 termcapinfo xterm*|rxvt*|kterm*|Eterm*|screen*|xs ti@:te@
 attrcolor b ".I"
