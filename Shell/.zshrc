@@ -117,11 +117,16 @@ setopt EXTENDED_GLOB
 setopt MAGIC_EQUAL_SUBST
 
 autoload -Uz compinit
-compinit -u
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]
+then
+  compinit -u
+else
+  compinit -C -u
+fi
 #autoload -U predict-on
 #predict-on
 
-zstyle ':completion:*' completer _expand _complete _match _prefix _ignored _correct _approximate _list _history
+zstyle ':completion:*' completer _expand _complete _ignored _match _prefix _list _history
 zstyle ':completion:*' description true
 zstyle ':completion:*' extra-verbose true
 zstyle ':completion:*' file-list true
