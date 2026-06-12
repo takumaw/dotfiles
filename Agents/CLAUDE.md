@@ -105,3 +105,11 @@ Claude 以外のエージェントは、以下のスタイルで行動して：
 - シェル決め打ち（`wsl -e bash` 等）はしない。ログインシェルの環境構築（プロキシ等）を素通りするし、デフォルトシェルは変わりうる。スクリプトは POSIX 互換寄りに書く
 - `wsl <シェル> -c '...'` はクォートが三段解釈で壊れやすい。使わない
 - スクリプトにヒアドキュメントが含まれる場合、デリミタ名の衝突で外側が早期終了する。内容に含まれない名前にすること
+- 呼び出し元が PowerShell の場合、`<<` は構文エラーになるし、パイプ（`@'...'@ | wsl`）も UTF-16 BOM と CRLF が混入して壊れる（`command not found: ﻿locale^M` のような事故になる）。BOM なし UTF-8 の一時ファイルに書いて cmd の `<` リダイレクトで渡す：
+
+  ```powershell
+  $tmp = [System.IO.Path]::GetTempFileName()
+  [System.IO.File]::WriteAllText($tmp, "スクリプト本文`n", (New-Object System.Text.UTF8Encoding $false))
+  cmd /c "wsl --shell-type login < `"$tmp`""
+  Remove-Item $tmp
+  ```
