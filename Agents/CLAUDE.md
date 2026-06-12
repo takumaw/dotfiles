@@ -86,13 +86,14 @@ Claude 以外のエージェントは、以下のスタイルで行動して：
 ### パスとファイルシステム
 
 - Windows のホームディレクトリ名は WSL2 のユーザー名と一致するとは限らない。`/mnt/c/Users/<名前>` を推測で組み立てず、`$env:USERPROFILE` で確認する
-- パス変換は手書きせず `wslpath` を使う（`-w` で Windows パス、`-u` で WSL パス）
+- パス変換は手書きせず WSL2 側の `wslpath` を使う（`-w` で Windows パス、`-u` で WSL パス）
 - `/mnt/c` 越しのファイル操作は 9P 経由で非常に遅い。リポジトリは WSL 側、Windows アプリが触るファイルは Windows 側に置く
 - Windows 側で作ったファイルを WSL で実行すると CRLF で死ぬことがある（`bad interpreter: /bin/bash^M` はこれ）
-- カレントディレクトリが UNC パス（`\wsl$\...` など）だと `cmd` 系コマンドが動かないことがある
+- Windows 側での作業中、カレントディレクトリが UNC パス（`\wsl$\...` など）だと `cmd` 系コマンドが動かないことがある
 
 ### Windows のシンボリックリンク
 
+- ここでの対象は Windows ファイルシステム上の symlink。WSL2 内のものは通常の `ln -s` でよい
 - `New-Item -ItemType SymbolicLink` は Developer Mode オンでも管理者権限で失敗することがある。WSL から `/mnt/c/` への `ln -s` は WSL 形式（LX_SYMLINK）になり Windows から辿れない。作成は必ず `sudo cmd /c "del /f /a ... && mklink ..."` のワンライナーで行う
 - `del /f /a` の `/a` は必須。ないと隠しファイルを消せず、`&&` で繋いだ `mklink` ごと静かにスキップされる
 - 「先に消してから作る」を分けると、作成失敗時にリンクが消えたままになる。ワンライナーで原子的に
