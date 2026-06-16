@@ -1,2 +1,5 @@
+# Placeholder so PGP/ exists in the repo as the home for key files. The keys
+# themselves are provisioned per machine and kept out of version control.
+# Track only this file; ignore everything else.
 *
 !.gitignore

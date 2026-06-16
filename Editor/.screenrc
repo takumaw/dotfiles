@@ -12,10 +12,15 @@ defscrollback 100000
 
 altscreen off
 term screen-256color
+# Advertise 256-color support to apps and map the SGR fg/bg sequences for it.
 termcapinfo xterm* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+# ti@:te@ disables the alternate-screen switch so program output stays in the
+# terminal's scrollback instead of vanishing on exit.
 termcapinfo xterm*|rxvt*|kterm*|Eterm*|screen*|xs ti@:te@
 attrcolor b ".I"
 
+# Window list on the last line: %-w windows before the current, %n%f* %t the
+# current one highlighted (white-on-black), %+w the ones after.
 hardstatus alwayslastline "%-w %{= wk}%n%f* %t%{-} %+w"
 caption splitonly "%3n %t %f"
 pow_detach_msg "Screen session of $LOGNAME $:cr:$:nl:ended."
@@ -24,9 +29,11 @@ pow_detach_msg "Screen session of $LOGNAME $:cr:$:nl:ended."
 # Keybindings
 #
 
+# Command prefix: C-a (then press a to send a literal C-a).
 escape ^Aa
 
-# in case these settings are not already on that system
+# A bare `bind <key>` clears screen's default binding for that key (here the
+# easily-fumbled ^k "kill region" and ^\ "quit"); our own binds follow.
 bind ^k
 #bind L
 bind "]" next

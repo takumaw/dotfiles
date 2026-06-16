@@ -1,6 +1,9 @@
 #
 # .zshrc
 #
+# Sourced for interactive shells, after .zshenv and .zprofile. Interactive
+# setup lives here: prompt, history, completion, keybindings, and aliases.
+#
 
 
 #
@@ -73,6 +76,8 @@ bindkey '^[[1;5C' end-of-line # Ctrl-Right with "Natural Text Editing" in iTerm2
 bindkey '^[^[[D' backward-word # Alt-Left
 bindkey '^[^[[C' forward-word # Alt-Right
 
+# Word-wise motions and deletes (M-f, M-b, ^W) treat punctuation as boundaries,
+# so they stop inside paths/URLs instead of swallowing the whole token.
 WORDCHARS=" $%&@+*|/\\\"'\`~=-;:,.!?{}[]()"
 autoload -U select-word-style
 select-word-style normal
@@ -117,6 +122,9 @@ setopt EXTENDED_GLOB
 setopt MAGIC_EQUAL_SUBST
 
 autoload -Uz compinit
+# Fully rebuild the completion dump at most once a day (when .zcompdump is
+# older than 24h); otherwise -C trusts the cached dump and skips the scan.
+# -u silences "insecure directory" warnings for group-writable fpath dirs.
 if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]
 then
   compinit -u
@@ -164,6 +172,7 @@ bindkey "^[[B" history-beginning-search-forward-end
 setopt AUTO_PUSHD
 setopt PUSHD_IGNORE_DUPS
 
+# Auto-list directory contents on every cd.
 function chpwd() { ls --color=always }
 
 
@@ -193,11 +202,17 @@ alias chcon="chcon -v"
 alias chattr="chattr -V"
 
 alias untar="tar -vxf"
+# $@[-1] is the last arg (archive to create), $@[1,-2] the rest (inputs), so
+# usage reads like cp: mktar src... dest.tar.gz. unzipjp decodes Shift_JIS
+# (ms932) filenames in zips created on Japanese Windows.
 function mktar () { tar -vczf $@[-1] $@[1,-2] }
 function mkzip () { zip -v $@[-1] $@[1,-2] }
 function unzipjp () { unzip -O ms932 $@ }
 
 alias rsync="rsync -vzaP --inplace --append"
+# Prefer the real wcurl/wget when installed, else fall back to curl with sane
+# download defaults (resume, retry, no-clobber). Keeps these habits working on
+# minimal boxes that ship only curl.
 function wcurl () {
   if (( $+commands[wcurl] ))
   then
@@ -246,11 +261,14 @@ fi
 if (( $+commands[docker] ))
 then
   alias docker-compose="docker compose"
+  # Run a container with the current dir mounted at the same path and set as
+  # the working dir, so relative paths on the command line just work.
   function docker-run-here () { docker run -v $(pwd):$(pwd) -w $(pwd) $@ }
 fi
 
 if (( $+commands[podman] ))
 then
+  # Same as docker-run-here, for podman.
   function podman-run-here () { podman run -v $(pwd):$(pwd) -w $(pwd) $@ }
 fi
 
@@ -283,6 +301,9 @@ then
     #eval "$(pyenv init -)"
     export PYENV_SHELL=zsh
     [ -f $PYENV_ROOT/completions/pyenv.$PYENV_SHELL ] && source $PYENV_ROOT/completions/pyenv.$PYENV_SHELL
+    # Lightweight pyenv shim instead of `eval "$(pyenv init -)"`: only the
+    # subcommands that must change the current shell (activate/shell/...) are
+    # eval'd; everything else runs as a plain exec. Keeps shell startup cheap.
     pyenv() {
       local command
       command="${1:-}"
@@ -302,6 +323,8 @@ then
   fi
 fi
 
+# JAVA_HOME: use macOS's java_home helper when present, otherwise derive it from
+# javac's real location (:A resolves symlinks, :h:h strips the trailing /bin/javac).
 if [[ -x /usr/libexec/java_home ]]
 then
   _jdk_home=$(/usr/libexec/java_home 2> /dev/null)
@@ -339,6 +362,8 @@ fi
 
 case $TERM in
 screen*)
+  # Under screen/tmux, name the window after the running command (preexec) and
+  # reset it to the shell name when idle (precmd). \ek...\e\\ is the title escape.
   function preexec() { echo -ne "\ek${1%% *}\e\\" }
   function precmd() { echo -ne "\ek${SHELL:t}\e\\" }
   ;;
@@ -366,6 +391,8 @@ linux*)
     alias open=wslview
   fi
 
+  # Provide macOS-style pbcopy/pbpaste on Linux: via xsel under X11, or by
+  # bridging to the Windows clipboard (clip.exe / Get-Clipboard) under WSL.
   if (( $+commands[xsel] ))
   then
     alias pbcopy='xsel --clipboard --input'

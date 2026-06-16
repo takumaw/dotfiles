@@ -1,2 +1,5 @@
+# Placeholder for ~/.ssh. install.sh symlinks ~/.ssh to this directory, so it
+# must exist in the repo, but SSH keys and config are machine-local secrets.
+# Track only this file; ignore everything else.
 *
 !.gitignore

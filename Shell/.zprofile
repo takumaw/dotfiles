@@ -1,6 +1,9 @@
 #
 # .zprofile
 #
+# Sourced once for login shells, after .zshenv and before .zshrc.
+# Put login-time setup here (things that should run per login, not per shell).
+#
 
 
 #

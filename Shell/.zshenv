@@ -1,6 +1,9 @@
 #
 # .zshenv
 #
+# Sourced for every zsh invocation (login, interactive, and scripts).
+# Keep it minimal: only environment that all of those genuinely need.
+#
 
 
 #

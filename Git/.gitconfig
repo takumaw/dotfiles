@@ -8,6 +8,7 @@
     signingKey = 0CC49C7EF2A82A0BA7424758A6B2264573065648
 [core]
     excludesFile = ~/.gitignore_global
+    # Normalize NFD filenames produced by macOS back to NFC, so paths match on other OSes.
     precomposeUnicode = true
 [init]
     defaultBranch = main
@@ -16,17 +17,20 @@
 [tag]
     gpgSign = true
 [transfer]
+    # Verify object integrity on every fetch/receive; rejects corrupt or tampered data.
     fsckObjects = true
 [fetch]
     prune = true
     pruneTags = true
-    parallel = 0
+    parallel = 0  # 0 = let git pick the number of parallel fetch threads
 [pull]
     rebase = true
 [rebase]
     autoStash = true
+    # Move other branch tips that point into the rebased range along with it.
     updateRefs = true
 [push]
+    # First push of a new branch sets its upstream automatically (no `-u` needed).
     autoSetupRemote = true
     default = simple
     followTags = true
@@ -38,8 +42,10 @@
     date = iso
 [diff]
     mnemonicPrefix = true
+    # More readable diffs than the default Myers, especially for code.
     algorithm = histogram
 [merge]
+    # Show the common ancestor in conflict markers, making 3-way resolution easier.
     conflictStyle = zdiff3
 [filter "lfs"]
     clean = git-lfs clean -- %f
