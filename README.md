@@ -7,7 +7,7 @@ Personal dotfiles, managed as symlinks into `$HOME`.
 - `Agents/` — Instructions for AI coding agents
 - `Editor/` — Editor and screen config
 - `Git/` — Git config and global ignore rules
-- `PGP/` — Public keys
+- `PGP/` — PGP keys
 - `SSH/` — Placeholder for `~/.ssh`; keys and config are machine-local
 - `Shell/` — Shell config
 
