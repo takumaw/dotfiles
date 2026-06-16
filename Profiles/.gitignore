@@ -1,0 +1,8 @@
+# Each subdirectory here is an independent, machine/affiliation-specific config
+# repo (cloned separately, e.g. `~/Config/Profiles/<name>`).
+#
+# Track only this file so that `Profiles/` exists right after cloning Config,
+# while ignoring everything else — no profile, nor even its name, ever enters
+# this public repo.
+*
+!.gitignore
