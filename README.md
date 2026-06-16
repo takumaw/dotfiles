@@ -1,4 +1,4 @@
-# Config
+# dotfiles
 
 Personal dotfiles, managed as symlinks into `$HOME`.
 
@@ -14,7 +14,7 @@ Personal dotfiles, managed as symlinks into `$HOME`.
 ## Install
 
 ```sh
-git clone https://github.com/takumaw/Config.git ~/Config
+git clone https://github.com/takumaw/dotfiles.git ~/Config
 cd ~/Config && ./install.sh
 ```
 
