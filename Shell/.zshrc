@@ -189,7 +189,7 @@ alias pp="ps -A -ww -o user,pid,stat,lstart,%cpu,%mem,vsz,rss,nice,class,tty,com
 alias lsof-long="lsof +c 0"
 alias lsof-ports="lsof-long -i -n -P"
 
-alias ls="ls --color=always"
+alias ls="ls --color=auto"
 alias ll="ls -lhAF"
 alias cp="cp -vi"
 alias mv="mv -vi"
@@ -258,10 +258,10 @@ export EDITOR=vim
 export PAGER=less
 export LESS="--RAW-CONTROL-CHARS"
 
-alias grep="grep --color=always"
-alias egrep="egrep --color=always"
-alias fgrep="fgrep --color=always"
-alias diff="diff --color=always"
+alias grep="grep --color=auto"
+alias egrep="egrep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias diff="diff --color=auto"
 
 if (( $+commands[vim] ))
 then
