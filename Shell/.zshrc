@@ -225,7 +225,8 @@ function unzipjp () {
   $unzip_cmd -O ms932 "$@"
 }
 
-alias rsync="rsync -vzaP --inplace --append"
+alias rsync="rsync -vzaP"
+alias rsync-append="rsync -vzaP --inplace --append"
 # Prefer the real wcurl/wget when installed, else fall back to curl with sane
 # download defaults (resume, retry, no-clobber). Keeps these habits working on
 # minimal boxes that ship only curl.
