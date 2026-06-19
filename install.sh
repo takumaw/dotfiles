@@ -23,7 +23,7 @@ symlink() {
 }
 
 # Create symlinks
-symlink "${REPO_DIR}/Editor/.screenrc" .screenrc
+symlink "${REPO_DIR}/Editor/tmux.conf" .tmux.conf
 symlink "${REPO_DIR}/Editor/.vimrc" .vimrc
 
 symlink "${REPO_DIR}/Git/.gitconfig" .gitconfig
