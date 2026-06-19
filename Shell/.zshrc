@@ -371,7 +371,7 @@ fi
 if [[ -d $HOME/.opam/default/bin ]]
 then
   export PATH="$HOME/.opam/default/bin:$PATH"
-  alias opam-activate="eval $(opam env)"
+  alias opam-activate='eval $(opam env)'
 fi
 
 #
