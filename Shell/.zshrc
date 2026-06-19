@@ -95,7 +95,7 @@ export ZLS_COLORS=$LS_COLORS
 # http://zsh.sourceforge.net/Doc/Release/Completion-System.html
 #
 
-typeset -U fpath
+typeset -U path PATH fpath
 fpath=(
   ~/.local/share/zsh/site-functions(/N)
   ~/.local/share/zsh/vendor-completions(/N)
