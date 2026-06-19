@@ -341,7 +341,8 @@ fi
 
 # JAVA_HOME: use macOS's java_home helper when present, otherwise derive it from
 # javac's real location (:A resolves symlinks, :h:h strips the trailing /bin/javac).
-if [[ -x /usr/libexec/java_home ]]
+_jdks=(/Library/Java/JavaVirtualMachines/*(N))
+if (( $#_jdks > 0 )) && [[ -x /usr/libexec/java_home ]]
 then
   _jdk_home=$(/usr/libexec/java_home 2> /dev/null)
   [[ -n $_jdk_home ]] && export JAVA_HOME=$_jdk_home
@@ -350,6 +351,7 @@ elif (( $+commands[javac] ))
 then
   export JAVA_HOME=${commands[javac]:A:h:h}
 fi
+unset _jdks
 
 if [[ -d $HOME/.cargo/bin ]]
 then
