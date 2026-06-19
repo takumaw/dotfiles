@@ -35,7 +35,13 @@ symlink "${REPO_DIR}/SSH" .ssh
 find "${REPO_DIR}/SSH" -type d -exec chmod 700 {} +
 find "${REPO_DIR}/SSH" -type f -exec chmod 600 {} +
 
-mkdir -p .claude
-# This link lives one level down in .claude/, so its relative target needs an
-# extra ../ compared with the links created directly in $HOME above.
-symlink "../${REPO_DIR}/Agents/CLAUDE.md" .claude/CLAUDE.md
+if [[ -d .claude ]]; then
+    symlink "../${REPO_DIR}/Agents/AGENTS.md" .claude/CLAUDE.md
+    symlink "../${REPO_DIR}/Agents/skills" .claude/skills
+fi
+
+if [[ -d .gemini ]]; then
+    mkdir -p .gemini/config
+    symlink "../../${REPO_DIR}/Agents/AGENTS.md" .gemini/config/AGENTS.md
+    symlink "../../${REPO_DIR}/Agents/skills" .gemini/config/skills
+fi
