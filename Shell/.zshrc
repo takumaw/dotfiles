@@ -209,7 +209,21 @@ alias untar="tar -vxf"
 # (ms932) filenames in zips created on Japanese Windows.
 function mktar () { tar -vczf $@[-1] $@[1,-2] }
 function mkzip () { zip -v $@[-1] $@[1,-2] }
-function unzipjp () { unzip -O ms932 $@ }
+function unzipjp () {
+  local unzip_cmd="unzip"
+  if [[ "$OSTYPE" == darwin* ]]; then
+    if [[ -x /opt/homebrew/opt/unzip/bin/unzip ]]; then
+      unzip_cmd="/opt/homebrew/opt/unzip/bin/unzip"
+    elif [[ -x /usr/local/opt/unzip/bin/unzip ]]; then
+      unzip_cmd="/usr/local/opt/unzip/bin/unzip"
+    elif [[ "$commands[unzip]" == "/usr/bin/unzip" ]]; then
+      echo "ERROR: macOS system unzip does not support the '-O' option."
+      echo "Please install Homebrew's unzip: brew install unzip"
+      return 1
+    fi
+  fi
+  $unzip_cmd -O ms932 "$@"
+}
 
 alias rsync="rsync -vzaP --inplace --append"
 # Prefer the real wcurl/wget when installed, else fall back to curl with sane
