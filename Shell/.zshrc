@@ -315,7 +315,7 @@ then
     
       case "$command" in
       activate|deactivate|rehash|shell)
-        eval "$(pyenv "sh-$command" "$@")"
+        eval "$(command pyenv "sh-$command" "$@")"
         ;;
       *)
         command pyenv "$command" "$@"
