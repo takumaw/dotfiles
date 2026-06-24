@@ -69,12 +69,22 @@ unsetopt BEEP
 setopt APPEND_CREATE
 
 bindkey -e
-bindkey '^[[5D' beginning-of-line # Ctrl-Left
-bindkey '^[[1;5D' beginning-of-line # Ctrl-Left with "Natural Text Editing" in iTerm2
-bindkey '^[[5C' end-of-line # Ctrl-Right
-bindkey '^[[1;5C' end-of-line # Ctrl-Right with "Natural Text Editing" in iTerm2
-bindkey '^[^[[D' backward-word # Alt-Left
-bindkey '^[^[[C' forward-word # Alt-Right
+
+# Ctrl-Left / Ctrl-Right (beginning / end of line)
+bindkey '^[[5D' beginning-of-line     # Ctrl-Left (macOS Terminal.app)
+bindkey '^[[5C' end-of-line           # Ctrl-Right (macOS Terminal.app)
+bindkey '^[[1;5D' beginning-of-line   # Ctrl-Left (Windows Terminal)
+bindkey '^[[1;5C' end-of-line         # Ctrl-Right (Windows Terminal)
+
+# Alt-Left / Alt-Right (word-wise motion)
+bindkey '^[^[[D' backward-word   # Option-Left (macOS Terminal.app)
+bindkey '^[^[[C' forward-word   # Option-Right (macOS Terminal.app)
+bindkey '^[[1;3D' backward-word  # Alt-Left (Windows Terminal)
+bindkey '^[[1;3C' forward-word   # Alt-Right (Windows Terminal)
+
+# Alt-Backspace (word-wise delete)
+bindkey '^[^?' backward-kill-word  # Option-Backspace (macOS Terminal.app)
+bindkey '^[^H' backward-kill-word  # Alt-Backspace (Windows Terminal)
 
 # Word-wise motions and deletes (M-f, M-b, ^W) treat punctuation as boundaries,
 # so they stop inside paths/URLs instead of swallowing the whole token.
