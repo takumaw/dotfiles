@@ -36,6 +36,10 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# iCloud nosync bypass
+*.nosync/
+*.nosync
+
 
 #
 # Linux
@@ -483,3 +487,6 @@ cscope.po.out
 
 # Visio autosave temporary files
 *.~vsd*
+
+
+
