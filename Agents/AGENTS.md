@@ -130,4 +130,4 @@ Claude 以外のエージェントは、以下のスタイルで行動して：
 ファイルが存在しない、または読み込めない場合は、エラーとせず静かに無視して。
 
 @~/.claude/CLAUDE.local.md
-@~/.gemini/config/GEMINI.local.md
+@~/.gemini/config/AGENTS.local.md
