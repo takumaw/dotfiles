@@ -185,7 +185,7 @@ setopt AUTO_PUSHD
 setopt PUSHD_IGNORE_DUPS
 
 # Auto-list directory contents on every cd.
-function chpwd() { ls --color=always }
+#function chpwd() { ls --color=always }
 
 
 #
