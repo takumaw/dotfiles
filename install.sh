@@ -31,6 +31,9 @@ symlink "${REPO_DIR}/Git/.gitignore_global" .gitignore_global
 
 symlink "${REPO_DIR}/Shell/.zshrc" .zshrc
 
+mkdir -p .config/uv
+symlink "../../${REPO_DIR}/Python/uv.toml" .config/uv/uv.toml
+
 symlink "${REPO_DIR}/SSH" .ssh
 find "${REPO_DIR}/SSH" -type d -exec chmod 700 {} +
 find "${REPO_DIR}/SSH" -type f -exec chmod 600 {} +
